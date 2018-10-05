@@ -1,0 +1,25 @@
+{
+  "name": "javascript30_course_files",
+  "description": "![](https://javascript30.com/images/JS3-social-share.png)",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/scotdle/javascriptpractice.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/scotdle/javascriptpractice/issues"
+  },
+  "homepage": "https://github.com/scotdle/javascriptpractice#readme",
+
+
+  "scripts": {
+    "start":   "browser-sync start --proxy 'localhost' --port:80 --files '**/*'"
+
+  }
+}
