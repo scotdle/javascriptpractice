@@ -1,0 +1,56 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Type Ahead 👀</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <form class="search-form">
+    <input type="text" class="search" placeholder="City or State">
+    <ul class="suggestions">
+      <li>Filter for a city</li>
+      <li>or a state</li>
+    </ul>
+  </form>
+<script>
+const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+const cities = [];
+fetch(endpoint)
+    .then(blob => blob.json()) //converting into JSON
+    .then(data =>cities.push(...data)); //pushing the data variable that contains the array of cities into the cities array.
+console.log(cities);
+
+function findMatch(wordtoMatch, cities) {
+  return cities.filter(place => {
+//figure out if the city or state matches what was submitted by user
+  const regularexpression = new RegExp(wordtoMatch, 'gi');// g means global and I means lowercase and uppercase regardless
+  return place.city.match(regularexpression) || place.state.match(regularexpression);
+  });
+}
+
+function displayMatches() {
+const matchArray = findMatch(this.value, cities); //fires and returns findMatch function
+const display = matchArray.map(place => {
+ const regularexpression = new RegExp(this.value, 'gi');
+ const cityName = place.city.replace(regularexpression, `<span class="hl">${this.value}</span>`); //places a highlight on whatever word is typed in on the list
+return `
+<li>
+<span class="name">${cityName}, ${place.state}</span>
+<span class="population">${place.population}</span>
+ </li>`;
+
+
+}).join('');
+suggestions.innerHTML = display;
+}
+const searchInput = document.querySelector('.search');
+const suggestions = document.querySelector('.suggestions');
+
+searchInput.addEventListener('change', displayMatches);
+searchInput.addEventListener('keyup', displayMatches);
+
+</script>
+  </body>
+</html>
